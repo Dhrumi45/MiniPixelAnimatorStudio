@@ -1,0 +1,359 @@
+/* General styles for the entire page */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Set font stack */
+  background: linear-gradient(135deg, #141416, #2c2c3c);       /* Gradient background */
+  color: #eee;                                                  /* Light text color */
+  text-align: center;                                           /* Center all text */
+  padding: 20px 10px 40px;                                      /* Page padding: top, sides, bottom */
+
+  /* Disable text selection for better UX */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+ */
+  user-select: none;         /* Standard */
+}
+
+/* Styles for main heading */
+h1 {
+  font-weight: 700;                /* Bold font */
+  letter-spacing: 2px;             /* Space between letters */
+  margin-bottom: 15px;             /* Space below heading */
+  color: #00e5ff;                  /* Bright cyan color */
+  text-shadow: 0 0 8px #00e5ff;   /* Glow effect */
+}
+
+/* Container holding the grid, centers it horizontally */
+.grid-container {
+  display: flex;                   /* Use flexbox layout */
+  justify-content: center;         /* Center content horizontally */
+  margin: 20px 0;                  /* Vertical margin top and bottom */
+}
+
+/* Grid holding pixels for drawing */
+.grid {
+  display: grid;                   /* CSS Grid layout */
+  grid-template-columns: repeat(16, 22px); /* 16 columns of 22px width */
+  grid-template-rows: repeat(16, 22px);    /* 16 rows of 22px height */
+  gap: 2px;                       /* Gap between grid items */
+  background: #1a1a25;            /* Dark background color */
+  border-radius: 8px;             /* Rounded corners */
+  box-shadow: 0 0 10px #0ff inset; /* Inner glowing cyan border */
+  padding: 8px;                   /* Padding inside grid container */
+}
+
+/* Each individual pixel inside grid */
+.pixel {
+  width: 22px;                    /* Fixed width */
+  height: 22px;                   /* Fixed height */
+  background: #fff;               /* Default white background */
+  cursor: pointer;                /* Pointer cursor on hover */
+  border-radius: 4px;             /* Slightly rounded corners */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15); /* Subtle shadow below */
+  transition: background-color 0.2s, transform 0.15s; /* Smooth color and scale changes */
+
+  /* Disable text selection on pixels */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hover effect for pixels */
+.pixel:hover {
+  transform: scale(1.1);          /* Slight zoom on hover */
+  box-shadow: 0 0 8px #0ff;       /* Cyan glow */
+}
+
+/* Color palette container */
+.palette {
+  margin: 10px 0 25px;            /* Vertical margin */
+  
+  /* Disable text selection in palette */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Individual color swatch in palette */
+.color-swatch {
+  display: inline-block;           /* Inline block to flow horizontally */
+  width: 28px;                    /* Fixed width */
+  height: 28px;                   /* Fixed height */
+  margin: 0 6px 6px 0;            /* Margin right and bottom for spacing */
+  border: 3px solid #222;         /* Dark border */
+  cursor: pointer;                /* Pointer cursor */
+  border-radius: 6px;             /* Rounded corners */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth border and shadow */
+  box-shadow: 0 0 4px transparent; /* Initial no shadow */
+
+  /* Disable text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Selected color swatch styles */
+.color-swatch.selected {
+  border-color: #0ff;             /* Cyan border */
+  box-shadow: 0 0 10px #0ff;      /* Cyan glow */
+}
+
+/* Controls container for buttons */
+.controls {
+  margin: 20px 0 35px;            /* Vertical margin */
+  display: flex;                  /* Flexbox layout */
+  justify-content: center;        /* Center horizontally */
+  flex-wrap: wrap;                /* Wrap buttons on smaller screens */
+  gap: 15px;                     /* Gap between buttons */
+  align-items: center;            /* Vertically center buttons */
+
+  /* Disable text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* General button styles */
+.btn {
+  font-weight: 600;               /* Semi-bold font */
+  padding: 12px 22px;             /* Padding inside button */
+  border-radius: 30px;            /* Rounded pill shape */
+  border: none;                   /* No border */
+  cursor: pointer;                /* Pointer cursor */
+  font-size: 1rem;                /* Standard font size */
+  letter-spacing: 0.05em;         /* Slight spacing between letters */
+  transition: all 0.3s ease;      /* Smooth transition for all properties */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3); /* Shadow for depth */
+  position: relative;             /* For ::after positioning */
+  overflow: hidden;              /* Hide overflow for ::after effect */
+  color: white;                  /* Text color */
+  min-width: 110px;              /* Minimum width for consistency */
+
+  /* Disable text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Button ripple effect container */
+.btn::after {
+  content: "";                   /* Empty content for effect */
+  position: absolute;            /* Absolute positioning inside button */
+  left: 50%;                    /* Center horizontally */
+  top: 50%;                     /* Center vertically */
+  width: 300%;                  /* Large size for ripple */
+  height: 300%;                 /* Large size for ripple */
+  background: rgba(255, 255, 255, 0.1); /* Light transparent white */
+  transform: translate(-50%, -50%) scale(0); /* Initially scaled down */
+  border-radius: 50%;           /* Circular shape */
+  transition: transform 0.5s ease; /* Smooth scaling */
+  z-index: 0;                   /* Behind text */
+}
+
+/* Animate ripple on hover */
+.btn:hover::after {
+  transform: translate(-50%, -50%) scale(1); /* Scale ripple up */
+}
+
+/* Button press effect */
+.btn:active {
+  transform: scale(0.95);       /* Slight shrink */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5); /* Shadow intensifies */
+}
+
+/* Primary button color */
+.btn.primary {
+  background: linear-gradient(45deg, #0066ff, #00ccff); /* Blue gradient */
+  box-shadow: 0 6px 12px #00ccff88;                     /* Blue glow */
+}
+
+/* Success button color */
+.btn.success {
+  background: linear-gradient(45deg, #00c851, #007e33); /* Green gradient */
+  box-shadow: 0 6px 12px #00c85188;                     /* Green glow */
+}
+
+/* Warning button color */
+.btn.warning {
+  background: linear-gradient(45deg, #ffbb33, #ff8800); /* Orange gradient */
+  box-shadow: 0 6px 12px #ffbb3388;                     /* Orange glow */
+  color: #222;                                          /* Dark text for contrast */
+}
+
+/* Danger button color */
+.btn.danger {
+  background: linear-gradient(45deg, #ff4444, #cc0000); /* Red gradient */
+  box-shadow: 0 6px 12px #ff444488;                     /* Red glow */
+}
+
+/* Label for frame duration input */
+.frame-duration-label {
+  font-weight: 600;             /* Semi-bold */
+  font-size: 1rem;              /* Normal size */
+  display: flex;                /* Flex container */
+  align-items: center;          /* Vertically center label and input */
+  gap: 8px;                    /* Space between label and input */
+  color: #ddd;                 /* Light grey text */
+
+  /* Disable text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Frame duration input box */
+.frame-duration-input {
+  width: 80px;                  /* Fixed width */
+  padding: 7px 10px;            /* Padding inside input */
+  border-radius: 20px;          /* Rounded edges */
+  border: 2px solid #00e5ff;   /* Cyan border */
+  background: #1a1a25;          /* Dark background */
+  color: #0ff;                  /* Cyan text */
+  font-weight: 700;             /* Bold text */
+  font-size: 1rem;              /* Standard font size */
+  outline-offset: 2px;          /* Space for focus outline */
+  transition: border-color 0.3s ease; /* Smooth border color change */
+
+  /* Allow text selection for input */
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Highlight border on focus */
+.frame-duration-input:focus {
+  border-color: #00ccff;        /* Brighter cyan */
+}
+
+/* Container for frame thumbnails */
+.frames {
+  display: flex;                /* Flex layout */
+  flex-wrap: wrap;              /* Wrap on multiple lines */
+  justify-content: center;      /* Center thumbnails */
+  margin-top: 20px;             /* Top margin */
+  gap: 12px;                   /* Space between thumbnails */
+
+  /* Disable text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Frame thumbnail styles */
+.frame-thumb {
+  width: 64px;                  /* Fixed width */
+  height: 64px;                 /* Fixed height */
+  background: #444;             /* Dark gray background */
+  border: 2px solid #ccc;       /* Light gray border */
+  border-radius: 8px;           /* Rounded corners */
+  image-rendering: pixelated;   /* Pixelated scaling for crisp pixels */
+  cursor: pointer;              /* Pointer cursor */
+  position: relative;           /* For layering */
+  box-shadow: 0 2px 8px rgba(0,255,255,0.3); /* Cyan glow */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
+
+  /* Disable text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hover effect on frame thumbnails */
+.frame-thumb:hover {
+  border-color: #0ff;           /* Cyan border */
+  box-shadow: 0 0 15px #0ff;   /* Stronger cyan glow */
+}
+
+/* Selected frame thumbnail */
+.frame-thumb.selected {
+  border-color: #0ff;           /* Cyan border */
+  box-shadow: 0 0 25px #0ff;   /* Stronger glow */
+}
+
+/* Palette wrapper for centering and spacing */
+.palette-wrapper {
+  display: flex;                /* Flex layout */
+  justify-content: center;      /* Center horizontally */
+  align-items: center;          /* Center vertically */
+  gap: 12px;                   /* Space between palette and icon */
+  margin-bottom: 25px;          /* Bottom margin */
+}
+
+/* Color picker icon size and cursor */
+.color-picker-icon {
+  font-size: 28px;              /* Icon font size */
+  cursor: pointer;              /* Pointer cursor */
+  transition: transform 0.2s;   /* Smooth scaling */
+  width: 32px;                  /* Fixed width */
+  height: 32px;                 /* Fixed height */
+}
+
+/* Scale icon on hover */
+.color-picker-icon:hover {
+  transform: scale(1.2);        /* Slightly larger on hover */
+}
+
+/* Footer container styling */
+.site-footer {
+  margin-top: 40px;             /* Space above footer */
+  padding: 24px;                /* Inner padding */
+  font-size: 1.2rem;            /* Larger font size */
+  color: #fff;                  /* White text */
+  text-align: center;           /* Center text */
+  position: relative;           /* Relative for layering */
+  z-index: 1;                  /* Above background layers */
+  overflow: hidden;            /* Clip overflow */
+  border-top-left-radius: 20px; /* Rounded top left corner */
+  border-top-right-radius: 20px; /* Rounded top right corner */
+  user-select: none;            /* Disable text selection */
+  pointer-events: auto;         /* Enable pointer events */
+  isolation: isolate;           /* Create stacking context */
+}
+
+/* Animated gradient background for footer */
+.site-footer::before {
+  content: "";                  /* Empty content */
+  position: absolute;           /* Absolute inside footer */
+  top: 0;                      /* Top aligned */
+  left: -50%;                  /* Start from left outside footer */
+  width: 200%;                 /* Wide enough to animate */
+  height: 100%;                /* Full height */
+  background: linear-gradient(270deg, #ff6ec4, #7873f5, #00e5ff, #00c851, #ff4444); /* Gradient */
+  background-size: 1000% 100%; /* Large gradient for animation */
+  animation: gradientShift 15s ease infinite; /* Animate background */
+  z-index: -1;                 /* Behind footer text */
+  opacity: 0.9;                /* Slight transparency */
+}
+
+/* Footer text glow */
+.footer-text {
+  text-shadow: 0 0 5px #fff, 0 0 15px #0ff; /* White and cyan glow */
+  font-weight: bold;          /* Bold text */
+  letter-spacing: 1px;        /* Spacing between letters */
+}
+
+/* Class to disable pointer events, useful to avoid color picker conflicts */
+.no-picker {
+  pointer-events: none;       /* Disable all mouse interactions */
+}
+
+/* Keyframes for shifting gradient animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;  /* Start position */
+  }
+  50% {
+    background-position: 100% 50%; /* Middle position */
+  }
+  100% {
+    background-position: 0% 50%;   /* Loop back */
+  }
+}
