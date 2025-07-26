@@ -1,0 +1,48 @@
+<!DOCTYPE html> <!-- Defines the document type and version of HTML -->
+<html lang="en"> <!-- Root element of the page with language set to English -->
+<head>
+  <meta charset="UTF-8" /> <!-- Sets character encoding to UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Ensures proper scaling on mobile devices -->
+  <title>Pixel Art Editor & Animator</title> <!-- Title of the webpage shown on browser tab -->
+  <link rel="stylesheet" href="styles.css" /> <!-- Links external CSS stylesheet for styling -->
+</head>
+<body>
+  <h1>🎨 Pixel Art & Animator</h1> <!-- Main heading with an emoji for the app title -->
+
+  <div class="palette-wrapper"> <!-- Container wrapping the color palette section -->
+    <div class="palette-section"> <!-- Section for color palette and picker -->
+      <div class="palette" id="palette"></div> <!-- Empty div where color palette will be dynamically generated -->
+      <div class="picker-container"> <!-- Container for custom color picker elements -->
+        <img src="assets/icons8-color-swatch-64.png" alt="Pick Color" class="color-picker-icon" onclick="triggerColorPicker()" title="Colour Picker" />
+        <!-- Color picker icon image; clicking triggers color picker input -->
+        <input type="color" id="customColorInput" style="display: none" onchange="addCustomColor(this.value)" />
+        <!-- Hidden color input; when user selects color, adds it to palette -->
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-container"> <!-- Container for pixel art grid -->
+    <div class="grid" id="grid"></div> <!-- Empty div where pixel grid will be dynamically created -->
+  </div>
+
+  <div class="controls"> <!-- Controls section with buttons and input -->
+    <button class="btn primary" onclick="addFrame()">Add Frame</button> <!-- Button to add a new animation frame -->
+    <button class="btn success" onclick="playAnimation()">▶️ Play</button> <!-- Button to play the animation -->
+    <button class="btn warning" onclick="stopAnimation()">⏹ Stop</button> <!-- Button to stop the animation -->
+    <button class="btn danger" onclick="deleteFrame()">🗑 Delete Frame</button> <!-- Button to delete current frame -->
+    <label class="frame-duration-label">Frame Duration (ms): <!-- Label for frame duration input -->
+      <input class="frame-duration-input" type="number" id="frameDuration" value="500" min="100" />
+      <!-- Number input for animation frame duration in milliseconds, default 500, minimum 100 -->
+    </label>
+  </div>
+
+  <div class="frames" id="framesList"></div> <!-- Container to display list or thumbnails of animation frames -->
+
+  <!-- ✨ Custom Footer -->
+  <footer class="site-footer"> <!-- Footer section at bottom of the page -->
+    Made with ❤️ by Dhrumi Khatri <!-- Footer text with heart emoji and author name -->
+  </footer>
+
+  <script src="script.js"></script> <!-- Links external JavaScript file to add interactivity -->
+</body>
+</html>
